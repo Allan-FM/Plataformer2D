@@ -14,6 +14,16 @@ public class PlayerController : MonoBehaviour
 
     public Sprite crouchedSprite;
     public Sprite idleSprite;
+
+    [Header("Camera")]
+    [SerializeField] private Transform cameraTarget;
+    [Range(0.0f, 5.0f)]
+    [SerializeField] private float cameraTargetOffSetX = 2.0f;
+    [Range(0.5f, 50.0f)]
+    [SerializeField] private float cameraTargetFlipSpeed = 2.0f;
+    [Range(0.0f, 5.0f)]
+    [SerializeField] private float characterSpeedInfluence = 2.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +47,9 @@ public class PlayerController : MonoBehaviour
         {
             spriteRenderer.flipX = true;
         }
+
+        
+
 
         //Jump
         if(playerInput.IsJumpButtonDown())
@@ -63,5 +76,18 @@ public class PlayerController : MonoBehaviour
             //TODO: remover quando adicionar animação
             spriteRenderer.sprite = idleSprite;
         }
+    }
+    private void FixedUpdate()
+    {
+     
+        bool isFacingRigth = spriteRenderer.flipX == false;
+        float targetOffSetX = isFacingRigth ? cameraTargetOffSetX : -cameraTargetOffSetX;
+
+        float currentOffSetX = Mathf.Lerp(cameraTarget.localPosition.x, targetOffSetX, Time.deltaTime * cameraTargetFlipSpeed);
+
+        currentOffSetX += playerMovement.CurrentVelocity.x * Time.fixedDeltaTime * characterSpeedInfluence;
+
+        cameraTarget.localPosition = new Vector3(currentOffSetX, cameraTarget.localPosition.y, cameraTarget.localPosition.z);
+
     }
 }
