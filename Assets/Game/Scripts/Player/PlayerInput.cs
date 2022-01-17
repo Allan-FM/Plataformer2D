@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerInput : MonoBehaviour
 {
-    private struct PlayerInputConstants
+    public struct PlayerInputConstants
     {
         public const string Horizontal = "Horizontal";
         public const string Vertical = "Vertical";

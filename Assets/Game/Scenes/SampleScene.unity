@@ -131,11 +131,13 @@ GameObject:
   m_Component:
   - component: {fileID: 109240512}
   - component: {fileID: 109240511}
+  - component: {fileID: 109240516}
   - component: {fileID: 109240509}
   - component: {fileID: 109240513}
   - component: {fileID: 109240510}
   - component: {fileID: 109240514}
   - component: {fileID: 109240515}
+  - component: {fileID: 109240517}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -182,7 +184,7 @@ MonoBehaviour:
   jumpPeakTime: 0.4
   jumpAbortDecceleration: 100
   crouchCapsuleHeightPercent: 0.61
-  crouchGroundSpeedPercent: 0.3
+  crouchGroundSpeedPercent: 0
   groundedLayerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -280,8 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da7d1d7cff2ff6347aef63ed63536794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crouchedSprite: {fileID: 21300000, guid: bd35fa3b066b8a849bca1c29918e2796, type: 3}
-  idleSprite: {fileID: 21300000, guid: df72d97bae32378418e06baa2e1be3ef, type: 3}
   cameraTarget: {fileID: 1517829842}
   cameraTargetOffSetX: 2
   cameraTargetFlipSpeed: 5
@@ -298,6 +298,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58787dd29612b194e9f3ce48bd7184c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &109240516
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109240508}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eefbb109b81649b44916ca9f6c7a9c96, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &109240517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109240508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598114e82b5ca2d459cd388f8f307dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 109240516}
+  playerMovement: {fileID: 109240510}
 --- !u!1 &114560969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8728,6 +8761,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 1.483963
+      objectReference: {fileID: 0}
+    - target: {fileID: 8830595028487136413, guid: 9529ecc3d479da5499993355e6c2cb4f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.6999779
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9529ecc3d479da5499993355e6c2cb4f, type: 3}
