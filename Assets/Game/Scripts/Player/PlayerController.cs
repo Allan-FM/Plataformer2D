@@ -4,12 +4,12 @@ using UnityEngine;
 using Platformer2D.Character;
 
 [RequireComponent(typeof(CharacterMovement2D))]
-[RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(PlayerInput))]
+[RequireComponent(typeof(CharacterFacing2D))]
 public class PlayerController : MonoBehaviour
 {
     CharacterMovement2D playerMovement;
-    SpriteRenderer spriteRenderer;
+    CharacterFacing2D playerFacing;
     PlayerInput playerInput;
 
     [Header("Camera")]
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerMovement = GetComponent<CharacterMovement2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        playerFacing = GetComponent<CharacterFacing2D>();
         playerInput = GetComponent<PlayerInput>();
     }
 
@@ -35,19 +35,9 @@ public class PlayerController : MonoBehaviour
         //Movement
         Vector2 movementInput = playerInput.GetMovementInput();
         playerMovement.ProcessMovementInput(movementInput);
+        playerFacing.UpdateFacing(movementInput);
 
-        if(movementInput.x > 0)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if(movementInput.x < 0)
-        {
-            spriteRenderer.flipX = true;
-        }
-
-        
-
-
+       
         //Jump
         if(playerInput.IsJumpButtonDown())
         {
@@ -57,7 +47,6 @@ public class PlayerController : MonoBehaviour
         {
             playerMovement.UpdateJumpAbort();
         }
-
         //Crouch
         if (playerInput.IsCrouchButtonDown())
         {
@@ -70,8 +59,8 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-     
-        bool isFacingRigth = spriteRenderer.flipX == false;
+
+        bool isFacingRigth = playerFacing.IsFacingRigth();
         float targetOffSetX = isFacingRigth ? cameraTargetOffSetX : -cameraTargetOffSetX;
 
         float currentOffSetX = Mathf.Lerp(cameraTarget.localPosition.x, targetOffSetX, Time.deltaTime * cameraTargetFlipSpeed);
@@ -81,4 +70,5 @@ public class PlayerController : MonoBehaviour
         cameraTarget.localPosition = new Vector3(currentOffSetX, cameraTarget.localPosition.y, cameraTarget.localPosition.z);
 
     }
+    
 }

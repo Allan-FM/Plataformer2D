@@ -10,7 +10,7 @@ public static class CharacterAnimationKeys
     public const string VerticalSpeed = "VerticalSpeed";
     public const string IsGrounded = "IsGrounded";
 }
-public class PlayerAnimationController : MonoBehaviour
+public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private CharacterMovement2D playerMovement;
@@ -19,7 +19,6 @@ public class PlayerAnimationController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<CharacterMovement2D>();
-
     }
 
     private void Update()
