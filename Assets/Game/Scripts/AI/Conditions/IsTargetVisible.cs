@@ -7,13 +7,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Condition("Game/Perception/IsTargetVisible")]
-public class IsTargetVisible :  GOCondition
+public class IsTargetVisible : GOCondition
 {
     [InParam("Target")]
     private GameObject target;
     public override bool Check()
     {
-
         return Vector2.Distance(gameObject.transform.position, target.transform.position) < 3;
     }
 }
