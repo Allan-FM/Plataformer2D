@@ -10,6 +10,8 @@ public class EnemyIAController : MonoBehaviour
     CharacterMovement2D enemyMovement;
     CharacterFacing2D enemyFAcing;
     public Vector2 movementInput;
+    public bool isChacing;
+
     // Start is called before the first frame update
     void Start()
     {

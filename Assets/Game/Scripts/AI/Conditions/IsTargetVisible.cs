@@ -1,9 +1,5 @@
 ﻿using BBUnity.Conditions;
 using Pada1.BBCore;
-using Pada1.BBCore.Framework;
-using Pada1.BBCore.Tasks;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [Condition("Game/Perception/IsTargetVisible")]
