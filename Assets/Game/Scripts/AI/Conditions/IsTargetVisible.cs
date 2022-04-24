@@ -7,8 +7,19 @@ public class IsTargetVisible : GOCondition
 {
     [InParam("Target")]
     private GameObject target;
+    [InParam("AIVision")]
+    private AIVision aiVision;
+    [InParam("TargetMemoryDuration")]
+    private float targetMemoryDuration;
+
+    private float forgetTargetTime;
     public override bool Check()
     {
-        return Vector2.Distance(gameObject.transform.position, target.transform.position) < 3;
+        if (aiVision.IsVisble(target))
+        {
+            forgetTargetTime = Time.time + targetMemoryDuration;
+            return true;
+        }
+        return Time.time < forgetTargetTime;
     }
 }

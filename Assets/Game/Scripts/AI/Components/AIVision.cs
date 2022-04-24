@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterFacing2D))]
 public class AIVision : MonoBehaviour
 {
     [Range(0.5f,  10.0f)]
@@ -9,6 +10,11 @@ public class AIVision : MonoBehaviour
 
     [Range(0, 180)]
     [SerializeField] private float visionAngle = 30;
+    private CharacterFacing2D characterFacing;
+    private void Awake()
+    {
+        characterFacing = GetComponent<CharacterFacing2D>();
+    }
 
     public bool IsVisble(GameObject target)
     {
@@ -20,14 +26,31 @@ public class AIVision : MonoBehaviour
         {
             return false;
         }
+
+        Vector2 toTarget = target.transform.position - transform.position;
+        Vector2 visionDirection = GetVisionDirection();
+        if(Vector2.Angle(visionDirection, toTarget) > visionAngle / 2)
+        {
+            return false;
+        }
+        return true;
         
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(transform.position, visionRange);
 
-        Vector3 visionDirection = Vector3.right;
+        Vector3 visionDirection = GetVisionDirection();
         Gizmos.DrawLine(transform.position, transform.position + Quaternion.Euler(0, 0, visionAngle / 2) * visionDirection * visionRange);
         Gizmos.DrawLine(transform.position, transform.position + Quaternion.Euler(0, 0, -visionAngle / 2) * visionDirection * visionRange);
+    }
+
+    private Vector2 GetVisionDirection()
+    {
+        if(characterFacing == null)
+        {
+            return Vector2.right;
+        }
+        return characterFacing.IsFacingRigth() ? Vector3.right : Vector3.left;
     }
 }

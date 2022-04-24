@@ -10435,10 +10435,12 @@ MonoBehaviour:
     - {fileID: 1364647244}
     - {fileID: 109240508}
     - {fileID: 1364647243}
+    - {fileID: 1364647249}
     objectParamsNames:
     - IAController
     - Target
     - ChacterMovement
+    - AIVision
     objectParamsLostDefaultValue: 
     layerMaskParams: []
     layerMaskParamsNames: []
