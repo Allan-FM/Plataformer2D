@@ -9,40 +9,26 @@ public static class CharacterAnimationKeys
     public const string HorizontalSpeed = "HorizontalSpeed";
     public const string VerticalSpeed = "VerticalSpeed";
     public const string IsGrounded = "IsGrounded";
-    
 }
+
 public static class EnemyAnimationKeys
 {
     public const string IsChacing = "IsChacing";
 }
 public class CharacterAnimationController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-    [SerializeField] private CharacterMovement2D playerMovement;
-    private EnemyIAController aiController;
-    private PlayerController PlayerController;
+    protected Animator animator;
+    protected CharacterMovement2D characterMovement;
 
-    private void Awake()
+
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
-        playerMovement = GetComponent<CharacterMovement2D>();
-        aiController = GetComponent<EnemyIAController>();
-        PlayerController = GetComponent<PlayerController>();
+        characterMovement = GetComponent<CharacterMovement2D>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        animator.SetFloat(CharacterAnimationKeys.HorizontalSpeed, playerMovement.CurrentVelocity.x / playerMovement.MaxGroundSpeed);
-        if(PlayerController != null)
-        {
-            animator.SetBool(CharacterAnimationKeys.IsCrouching, playerMovement.IsCrouching);
-            animator.SetFloat(CharacterAnimationKeys.VerticalSpeed, playerMovement.CurrentVelocity.y / playerMovement.JumpSpeed);
-            animator.SetBool(CharacterAnimationKeys.IsGrounded, playerMovement.IsGrounded);
-        }
-        if(aiController != null)
-        {
-            animator.SetBool(EnemyAnimationKeys.IsChacing, aiController.isChacing);
-        }
-        
+        animator.SetFloat(CharacterAnimationKeys.HorizontalSpeed, characterMovement.CurrentVelocity.x / characterMovement.MaxGroundSpeed);
     }
 }
