@@ -20,18 +20,18 @@ public class ChaseTarget : BasePrimitiveAction
     public override void OnStart()
     {
         base.OnStart();
-        aiController.isChacing = true;
+        aiController.IsChacing = true;
         characterMovement.MaxGroundSpeed = chaseSpeed;
     }
     public override void OnAbort()
     {
         base.OnAbort();
-        aiController.isChacing = false;
+        aiController.IsChacing= false;
     }
     public override TaskStatus OnUpdate()
     {
         Vector2 toTarget = target.transform.position - aiController.transform.position;
-        aiController.movementInput.x = Mathf.Sign(toTarget.x);
+        aiController.MovementInput = new Vector2(Mathf.Sign(toTarget.x),0);
         return TaskStatus.RUNNING;
     }
 }
