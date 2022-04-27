@@ -15,11 +15,26 @@ public class IsTargetVisible : GOCondition
     private float forgetTargetTime;
     public override bool Check()
     {
-        if (aiVision.IsVisble(target))
+        bool isAvailable = IsAvailable();
+        if (aiVision.IsVisble(target) && isAvailable)
         {
             forgetTargetTime = Time.time + targetMemoryDuration;
             return true;
         }
-        return Time.time < forgetTargetTime;
+        return Time.time < forgetTargetTime && isAvailable;
+    }
+    private bool IsAvailable()
+    {
+        if(target == null)
+        {
+            return false;
+        }
+        //TODO: NAO CHAMAR O GETCOMPNENT NO UPDATE
+        IDamageable damageable = target.GetComponent<IDamageable>();
+        if(damageable != null)
+        {
+            return !damageable.IsDead;
+        }
+        return true;
     }
 }
