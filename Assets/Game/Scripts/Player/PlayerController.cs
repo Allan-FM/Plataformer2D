@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     CharacterFacing2D playerFacing;
     PlayerInput playerInput;
     IDamageable damageable;
+
+    [SerializeField] private GameObject weaponObject;
+    public IWeapon Weapon { get; private set; }
   
 
     [Header("Camera")]
@@ -33,6 +36,11 @@ public class PlayerController : MonoBehaviour
         damageable = GetComponent<IDamageable>();
 
         damageable.DeathEvent += OnDeath;
+
+        if (weaponObject != null)
+        {
+            Weapon = weaponObject.GetComponent<IWeapon>();
+        }
     }
     private void OnDestroy()
     {
@@ -68,6 +76,10 @@ public class PlayerController : MonoBehaviour
         else if(playerInput.IsCrouchButtonUp())
         {
             playerMovement.UnCrouch();
+        }
+        if (Weapon != null && playerInput.IsAttackButtonDown())
+        {
+            Weapon.Attack();
         }
     }
     private void FixedUpdate()

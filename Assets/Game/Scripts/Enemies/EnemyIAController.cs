@@ -5,10 +5,13 @@ using Platformer2D.Character;
 
 [RequireComponent(typeof(CharacterMovement2D))]
 [RequireComponent(typeof(CharacterFacing2D))]
+[RequireComponent(typeof(IDamageable))]
 public class EnemyIAController : MonoBehaviour
 {
+    [SerializeField] private TriggerDamage damage;
     CharacterMovement2D enemyMovement;
     CharacterFacing2D enemyFAcing;
+    IDamageable damageable;
     private Vector2 movementInput;
     private bool isChacing;
 
@@ -28,6 +31,16 @@ public class EnemyIAController : MonoBehaviour
     {
         enemyMovement = GetComponent<CharacterMovement2D>();
         enemyFAcing = GetComponent<CharacterFacing2D>();
+        damageable = GetComponent<IDamageable>();
+
+        damageable.DeathEvent += OnDeath;
+    }
+    private void OnDestroy()
+    {
+        if(damageable != null)
+        {
+            damageable.DeathEvent -= OnDeath;
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +48,13 @@ public class EnemyIAController : MonoBehaviour
     {
         enemyMovement.ProcessMovementInput(movementInput);
         enemyFAcing.UpdateFacing(movementInput);
+    }
+    private void OnDeath()
+    {
+        enabled = false;
+        enemyMovement.StopImmediately();
+        damage.gameObject.SetActive(false);
+        Destroy(gameObject, 0.8f);
     }
     
 }

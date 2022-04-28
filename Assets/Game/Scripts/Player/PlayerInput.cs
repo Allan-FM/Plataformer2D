@@ -10,13 +10,14 @@ public class PlayerInput : MonoBehaviour
         public const string Horizontal = "Horizontal";
         public const string Vertical = "Vertical";
         public const string Jump = "Jump";
+        public const string Attack = "Attack";
     }
     public Vector2 GetMovementInput()
     {
         //Tecaldo
         float horizontalInput = Input.GetAxisRaw(PlayerInputConstants.Horizontal);
 
-        if(Mathf.Approximately(horizontalInput, 0.0f))
+        if (Mathf.Approximately(horizontalInput, 0.0f))
         {
             horizontalInput = CrossPlatformInputManager.GetAxisRaw(PlayerInputConstants.Horizontal);
         }
@@ -28,7 +29,7 @@ public class PlayerInput : MonoBehaviour
         bool IsMobileButtonDown = CrossPlatformInputManager.GetButtonDown(PlayerInputConstants.Jump);
 
         return IsKeyBoardButtonDown || IsMobileButtonDown;
-        
+
     }
     public bool IsJumpButtonHeld()
     {
@@ -48,5 +49,11 @@ public class PlayerInput : MonoBehaviour
         bool IsKeyBoardUp = Input.GetKey(KeyCode.S) == false;
         bool IsMobileButtonUp = CrossPlatformInputManager.GetAxisRaw(PlayerInputConstants.Vertical) >= 0;
         return IsKeyBoardUp && IsMobileButtonUp;
+    }
+    public bool IsAttackButtonDown()
+    {
+        bool IsKeyBoardButtonDown = Input.GetKeyDown(KeyCode.Mouse0);
+        bool IsMobileButtonDown = CrossPlatformInputManager.GetButtonDown(PlayerInputConstants.Attack);
+        return IsKeyBoardButtonDown || IsMobileButtonDown;
     }
 }

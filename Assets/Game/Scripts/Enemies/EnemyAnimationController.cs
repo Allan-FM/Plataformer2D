@@ -8,10 +8,13 @@ public class EnemyAnimationController : CharacterAnimationController
     {
         base.Awake();
         aiController = GetComponent<EnemyIAController>();
+        
     }
+
     protected override void Update()
     {
         base.Update();
         animator.SetBool(EnemyAnimationKeys.IsChacing, aiController.IsChacing);
     }
+
 }
