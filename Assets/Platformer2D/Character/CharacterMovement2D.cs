@@ -125,7 +125,7 @@ namespace Platformer2D.Character
                 currentVelocity.y = JumpSpeed;
             }
         }
-        public void UpdateJumpAbort()
+        public void AbortJump()
         {
             if (IsJumping)
             {
